@@ -3,9 +3,15 @@ const cors = require ('cors')
 const mongoose= require('mongoose')
 const dotenv = require('dotenv')
 //import routes 
-const userRegister = require ('./routes/Register')
-const userLogin = require ('./routes/Login')
-const userDelete =  require('./routes/delete')
+const userRegister = require ('./routes/user.routes/Register')
+const userLogin = require ('./routes/user.routes/Login')
+const userModifier =  require('./routes/user.routes/modifier')
+const addFournisseur = require ('./routes/fournisseur.routes/add.fournisseur')
+const addProduit = require('./routes/produit.routes/add.produit')
+const addcouleur = require('./routes/produit.routes/add.couleur-produit')
+const addImage = require('./routes/produit.routes/add.image-produit')
+const afficherFournisseur = require('./routes/fournisseur.routes/afficher-fournisseurs')
+const afficherProduit = require('./routes/produit.routes/afficher-produit')
 require('dotenv').config()
 
 const app = express()
@@ -18,13 +24,18 @@ const URL = process.env.BD_URL
 mongoose.connect(URL , {useNewUrlParser : true , useUnifiedTopology: true } , () =>{
     console.log('connection to database is established successfully')
 })
-
+//rendre le dossier des images static => accessible 
+app.use(express.static('uploads'))
 //routes middleware 
-app.use('/api/add' , userRegister)
-app.use('/api/login' , userLogin)
-app.use('/api' , userDelete)
-
-
+app.use('/api' , userRegister)
+app.use('/api' , userLogin)
+app.use('/api' , userModifier)
+app.use('/api' , addFournisseur)
+app.use('/api' , addProduit)
+app.use('/api' , addcouleur)
+app.use('/api' , addImage)
+app.use('/api' , afficherFournisseur)
+app.use('/api' , afficherProduit)
 
  app.listen(5000 , () =>{
      console.log('server is running')
