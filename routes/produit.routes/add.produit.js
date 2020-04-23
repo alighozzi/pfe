@@ -2,9 +2,7 @@ const router = require('express').Router()
 const  verify = require('../../VerifyToken')
 let Produit = require('../../models/model.produit.fournisseur/produit.model')
 let Fournisseur = require('../../models/model.fournisseur/fournisseur.model')
-
 router.post('/add/:fournisseurID/produit',  async (req,res) =>{
-       
        //trouver le fournisseur concerne
        const fournisseurConcerne = await Fournisseur.findOne({_id: req.params.fournisseurID}) 
        
@@ -16,7 +14,6 @@ router.post('/add/:fournisseurID/produit',  async (req,res) =>{
        const prix_vente_potentiel = Number(req.body.prix_vente_potentiel)
        const frais_port = Number(req.body.frais_port)
        const taille = req.body.taille
-      
        const newProduit = new Produit({
         fournisseur,
         titre,
@@ -33,14 +30,11 @@ router.post('/add/:fournisseurID/produit',  async (req,res) =>{
      //associer le fournisseur avec le produit 
      fournisseurConcerne.produits.push(newProduit._id)
      await fournisseurConcerne.save()
-     
- 
- })
-
+     })
+     module.exports = router
 //  router.get('/show/all/produit',async (req,res) =>{
 //   await Produit.find()
 //    .then(produits => res.json(produits))
 //    .catch(err => res.status(400).json('Error : ' + err))
 
 // })
- module.exports = router

@@ -5,6 +5,7 @@ let Fournisseur = require('../../models/model.fournisseur/fournisseur.model')
 router.post('/add/fournisseur',  async (req,res) =>{
        
        const nom = req.body.nom
+       const url= req.body.url
        const categorie = req.body.categorie
        const sous_categorie = req.body.sous_categorie
        const taux_reponse = Number(req.body.taux_reponse)
@@ -13,6 +14,7 @@ router.post('/add/fournisseur',  async (req,res) =>{
       
        const newFournisseur = new Fournisseur({
         nom,
+        url,
         categorie,
         sous_categorie,
         taux_reponse,
