@@ -1,0 +1,12 @@
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+const ImageSchema = new Schema(
+  {
+    produit: { type: Schema.Types.ObjectId, ref: "Produit_babaliste" },
+    images: { type: String, required: true },
+  },
+  { timestamps: true }
+);
+const Image = mongoose.model("Images_Produit_babaliste", ImageSchema);
+module.exports = Image;
