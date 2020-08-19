@@ -29,12 +29,12 @@ searchItems = (searchTerm) => {
         });
 
         //const link = $('div.product-tile-inner a').attr('href')
-        const image = $("a.product-item-image-link img").attr("src");
+        const image_src = $("a.product-item-image-link img").attr("src");
         const link1 = $("a.product-item-image-link").attr("href");
         const link = "https://www.lcwaikiki.ma" + link1;
         //writeStream.write(`${titre}, ${prix} \n`);
         const produit = {
-          image,
+          image_src,
           titre,
           prix,
           link,

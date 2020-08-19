@@ -60,26 +60,19 @@ app.use("/api", addProduitBabaliste);
 app.use("/api", afficherProduitBabaliste);
 app.use("/api", addimagebabaliste);
 
-app.get("/:website/:searchitem", (req, res) => {
+app.get("/:website/:searchitem", async (req, res) => {
   if (req.params.website == "Etam") {
-    scarpingEtam.searchEtam(req.params.searchitem).then((produits) => {
+    await scarpingEtam.searchEtam(req.params.searchitem).then((produits) => {
       res.json(produits);
-      const files = json2csv(
-        { data: produits, fields: ["image_src", "link", "prix", "titre"] },
-        function (err, csv) {
-          if (err) console.log(err);
-          fs.writeFile("products.csv", csv, function (err) {
-            if (err) throw err;
-            console.log("file created");
-          });
-        }
-      );
-      console.log("fichier en csv", files);
     });
   } else if (req.params.website == "LcWaikiki") {
-    scarpingWaikiki.searchItems(req.params.searchitem).then((produits) => {
-      res.json(produits);
-    });
+    await scarpingWaikiki
+      .searchItems(req.params.searchitem)
+      .then((produits) => {
+        res
+          .json(produits)
+          .catch((err) => res.status(400).json("Error :" + err));
+      });
   } else return "recherche non valide";
 });
 
